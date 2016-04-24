@@ -1,0 +1,39 @@
+| {% extends 'base.html' %}
+| {% block content %}
+h1 Video Upload!
+form(action='/upload' enctype="multipart/form-data" method="post" id="uploadform")
+  .form-group
+    label(for="thefile") Record video:
+    input#thefile.form-control(type="file" accept="video/*;capture=camcorder" name="thefile" aria-describedby="thefilehelp")
+    span#thefilehelp.help-block This field is required
+  .form-group
+    label.radio-inline
+      input(type="radio" name="vidtype" value="Maintenance" checked="checked")
+      | Maintenance
+    label.radio-inline
+      input(type="radio" name="vidtype" value="Geography")
+      | Geography
+    label.radio-inline
+      input(type="radio" name="vidtype" value="Puzzles")
+      | Puzzles
+  .form-group
+    label(for="composer") Composer:
+    input#composer.form-control(name="composer" aria-describedby="composerhelp")
+    span#composerhelp.help-block This field is required
+  .form-group
+    label(for="piece") Piece:
+    input#piece.form-control(name="piece" aria-describedby="piecehelp")
+    span#piecehelp.help-block This field is required
+  .form-group
+    button#vidsubmit.btn.btn-default.has-spinner(type="submit")
+      span.spinner
+        i.icon-spin.icon-refresh
+      | Save
+  hr
+  h2 Known files:
+  ul#flist
+    |{% for f in fnames %}
+    li
+      a(href="/video/{{ f }}") {{ f }}
+    | {% endfor %}
+| {% endblock %}
